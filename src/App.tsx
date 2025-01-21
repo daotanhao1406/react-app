@@ -43,6 +43,7 @@ const initialWidgets: Widget[] = [
 const App: React.FC = () => {
   const [widgets, setWidgets] = useState<Widget[]>(initialWidgets);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [editingWidget, setEditingWidget] = useState<Widget | null>(null);
   const [form] = Form.useForm();
 
   const onLayoutChange = (layout: GridLayout.Layout[]) => {
@@ -78,7 +79,23 @@ const App: React.FC = () => {
     form.resetFields();
   };
 
-  // Tính toán vị trí y cho widget Add
+  const handleEditWidget = (values: { title: string; content: string }) => {
+    if (editingWidget) {
+      const updatedWidgets = widgets.map((widget) =>
+        widget.id === editingWidget.id
+          ? { ...widget, title: values.title, content: values.content }
+          : widget
+      );
+      setWidgets(updatedWidgets);
+      setEditingWidget(null);
+      form.resetFields();
+    }
+  };
+
+  const handleDeleteWidget = (widgetId: string) => {
+    setWidgets(widgets.filter((widget) => widget.id !== widgetId));
+  };
+
   const maxY = widgets.reduce((max, widget) => {
     return Math.max(max, widget.y + widget.h);
   }, 0);
@@ -103,7 +120,17 @@ const App: React.FC = () => {
         >
           {widgets.map((widget) => (
             <div key={widget.id}>
-              <WidgetCard widget={widget} />
+              <WidgetCard
+                widget={widget}
+                onEdit={(widget) => {
+                  setEditingWidget(widget);
+                  form.setFieldsValue({
+                    title: widget.title,
+                    content: widget.content,
+                  });
+                }}
+                onDelete={handleDeleteWidget}
+              />
             </div>
           ))}
           <div key="add-widget">
@@ -112,10 +139,11 @@ const App: React.FC = () => {
         </GridLayout>
 
         <Modal
-          title="Add New Widget"
-          open={isModalVisible}
+          title={editingWidget ? "Edit Widget" : "Add New Widget"}
+          open={isModalVisible || editingWidget !== null}
           onCancel={() => {
             setIsModalVisible(false);
+            setEditingWidget(null);
             form.resetFields();
           }}
           footer={null}
@@ -123,7 +151,7 @@ const App: React.FC = () => {
           <Form
             form={form}
             layout="vertical"
-            onFinish={handleAddWidget}
+            onFinish={editingWidget ? handleEditWidget : handleAddWidget}
           >
             <Form.Item
               name="title"
@@ -141,7 +169,7 @@ const App: React.FC = () => {
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
-                Add Widget
+                {editingWidget ? 'Save Changes' : 'Add Widget'}
               </Button>
             </Form.Item>
           </Form>
