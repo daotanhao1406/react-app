@@ -1,0 +1,29 @@
+@import 'antd/dist/reset.css';
+
+.layout {
+  background: #f0f2f5;
+}
+
+.react-grid-item {
+  transition: all 200ms ease;
+  transition-property: left, top;
+}
+
+.react-grid-item.react-grid-placeholder {
+  background: #1890ff;
+  opacity: 0.2;
+  border-radius: 4px;
+}
+
+.react-grid-item.resizing {
+  opacity: 0.9;
+}
+
+.react-grid-item .ant-card {
+  height: 100%;
+  margin: 0;
+}
+
+.react-grid-item .ant-card-head {
+  cursor: move;
+}
