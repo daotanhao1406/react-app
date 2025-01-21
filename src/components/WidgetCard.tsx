@@ -10,6 +10,18 @@ interface WidgetCardProps {
 }
 
 const WidgetCard: React.FC<WidgetCardProps> = ({ widget, onEdit, onDelete }) => {
+  const handleEdit = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onEdit(widget);
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onDelete(widget.id);
+  };
+
   return (
     <Card
       title={widget.title}
@@ -17,23 +29,19 @@ const WidgetCard: React.FC<WidgetCardProps> = ({ widget, onEdit, onDelete }) => 
       className="h-full"
       bodyStyle={{ height: 'calc(100% - 45px)', overflow: 'auto' }}
       extra={
-        <Space>
+        <Space onClick={e => e.stopPropagation()}>
           <Button
             type="text"
             icon={<EditOutlined />}
-            onClick={(e) => {
-              e.stopPropagation();
-              onEdit(widget);
-            }}
+            onClick={handleEdit}
+            onMouseDown={e => e.stopPropagation()}
           />
           <Button
             type="text"
             danger
             icon={<DeleteOutlined />}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete(widget.id);
-            }}
+            onClick={handleDelete}
+            onMouseDown={e => e.stopPropagation()}
           />
         </Space>
       }

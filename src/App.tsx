@@ -123,6 +123,7 @@ const App: React.FC = () => {
               <WidgetCard
                 widget={widget}
                 onEdit={(widget) => {
+                  
                   setEditingWidget(widget);
                   form.setFieldsValue({
                     title: widget.title,
