@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Flex,
@@ -12,82 +12,52 @@ import {
   useDisclosure,
   DrawerContent,
   DrawerCloseButton,
-  IconButton,
 } from "@chakra-ui/react";
 import { IoMenuOutline } from "react-icons/io5";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { isWindowAvailable } from "../utils/navigation";
 import Content from "./Content";
+import { isWindowAvailable } from "../utils/navigation";
 
 type SidebarProps = {
   engine?: string;
   setChildData?: (data: string) => void;
-  onCollapse?: (collapsed: boolean) => void;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({
-  engine,
-  setChildData,
-  onCollapse,
-}) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+const Sidebar: React.FC<SidebarProps> = ({ engine, setChildData }) => {
+  let variantChange = "0.2s linear";
   let sidebarBg = useColorModeValue("#FFFFFF", "#FFFFFF");
   let sidebarRadius = "24px";
   let sidebarMargins = "0px";
   let sidebarBgBoxShadow = "0px 4px 15px 0px rgba(0, 0, 0, 0.08)";
 
-  const handleCollapse = () => {
-    const newCollapsedState = !isCollapsed;
-    setIsCollapsed(newCollapsedState);
-    onCollapse?.(newCollapsedState);
-  };
-
   return (
-    <>
+    <Box
+      display={{ base: "none", xl: "block" }}
+      position="fixed"
+      minH="100%"
+      zIndex={"3"}
+    >
       <Box
-        position="fixed"
+        bg={sidebarBg}
+        transition={variantChange}
+        w="285px"
+        ms={{
+          sm: "16px",
+        }}
+        my={{
+          sm: "16px",
+        }}
+        h="calc(100vh - 32px)"
+        m={sidebarMargins}
+        border={"1px solid"}
+        borderColor={"#E0E0E0"}
+        boxShadow={sidebarBgBoxShadow}
+        borderRadius={sidebarRadius}
         minH="100%"
-        zIndex={"3"}
-        transform={isCollapsed ? "translateX(-225px)" : "translateX(0)"}
-        transition="transform 0.3s ease-in-out"
+        overflowX="hidden"
       >
-        <Box
-          bg={sidebarBg}
-          w="285px"
-          ms={{
-            sm: "16px",
-          }}
-          my={{
-            sm: "16px",
-          }}
-          h="calc(100vh - 32px)"
-          m={sidebarMargins}
-          border={"1px solid"}
-          borderColor={"#E0E0E0"}
-          boxShadow={sidebarBgBoxShadow}
-          borderRadius={sidebarRadius}
-          minH="100%"
-          overflowX="hidden"
-        >
-          <Content engine={engine} setChildData={setChildData} />
-        </Box>
+        <Content engine={engine} setChildData={setChildData} />
       </Box>
-
-      <IconButton
-        aria-label="Toggle Sidebar"
-        icon={isCollapsed ? <FiChevronRight /> : <FiChevronLeft />}
-        position="fixed"
-        left={isCollapsed ? "16px" : "301px"}
-        top="20px"
-        backgroundColor="white"
-        borderRadius="50%"
-        boxShadow="md"
-        size="sm"
-        onClick={handleCollapse}
-        zIndex={4}
-        transition="left 0.3s ease-in-out"
-      />
-    </>
+    </Box>
   );
 };
 
