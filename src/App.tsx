@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Typography, Button, ConfigProvider, theme } from "antd";
+import { Typography, Button, ConfigProvider, theme, Popover } from "antd";
 import { PlusOutlined, MoonOutlined, SunOutlined } from "@ant-design/icons";
 import SelectableCardList from "./page/SelectableCardList";
+import RelationshipForm from "./components/RelationshipForm";
 
 // Sample data
 const initialPolicies = [
@@ -58,6 +59,11 @@ const initialPolicies = [
 function App() {
   const [policies, setPolicies] = useState(initialPolicies);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
 
   const handleDeletePolicies = (ids: string[]) => {
     setPolicies((prev) => prev.filter((policy) => !ids.includes(policy.id)));
@@ -95,6 +101,18 @@ function App() {
               <Button type="primary" icon={<PlusOutlined />}>
                 Add New Policy
               </Button>
+              <Popover
+                content={<RelationshipForm />}
+                title="Create Relationship"
+                trigger="click"
+                open={open}
+                onOpenChange={handleOpenChange}
+                placement="right"
+              >
+                <Button type="primary" icon={<PlusOutlined size={16} />}>
+                  Add Relationship
+                </Button>
+              </Popover>
             </div>
           </div>
 
