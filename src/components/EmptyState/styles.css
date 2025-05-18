@@ -1,0 +1,36 @@
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  height: 100%;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.empty-description {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.empty-message {
+  text-align: center;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+
+.create-button {
+  background-color: #6366f1;
+  border-color: #6366f1;
+  transition: all 0.3s ease;
+}
+
+.create-button:hover {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
