@@ -1,10 +1,9 @@
-import CategoryDetails from "./components/CategoryDetails";
-import CategoryManagement from "./page/CategoryManagement";
+import Map3D from "./page/3DMap";
 
 // Sample dat
 
 function App() {
-  return <CategoryDetails />;
+  return <Map3D />;
 }
 
 export default App;
