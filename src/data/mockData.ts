@@ -221,3 +221,76 @@ export const relatedEntities: Entity[] = [
     createdBy: users[3],
   },
 ];
+
+export const servers = [
+  {
+    name: "NEXUS-ALPHA",
+    ip: "192.168.1.100",
+    country: "United States",
+    countryCode: "us",
+    latency: 12,
+    isOnline: true,
+  },
+  {
+    name: "MATRIX-BETA",
+    ip: "10.0.0.55",
+    country: "Japan",
+    countryCode: "jp",
+    latency: 8,
+    isOnline: true,
+  },
+  {
+    name: "ZENITH-GAMMA",
+    ip: "172.16.0.89",
+    country: "Germany",
+    countryCode: "de",
+    latency: 15,
+    isOnline: true,
+  },
+  {
+    name: "AURORA-DELTA",
+    ip: "203.0.113.42",
+    country: "Australia",
+    countryCode: "au",
+    latency: 45,
+    isOnline: true,
+  },
+  {
+    name: "PHOENIX-ECHO",
+    ip: "198.51.100.21",
+    country: "Canada",
+    countryCode: "ca",
+    latency: 18,
+    isOnline: true,
+  },
+  {
+    name: "CIPHER-FOXTROT",
+    ip: "51.15.128.77",
+    country: "France",
+    countryCode: "fr",
+    latency: 22,
+    isOnline: true,
+  },
+  {
+    name: "VERTEX-GOLF",
+    ip: "139.162.45.193",
+    country: "Singapore",
+    countryCode: "sg",
+    latency: 35,
+    isOnline: true,
+  },
+  {
+    name: "QUANTUM-HOTEL",
+    ip: "85.204.76.44",
+    country: "Brazil",
+    countryCode: "br",
+    latency: null,
+    isOnline: false,
+  },
+];
+
+// Add IDs to servers for compatibility
+export const serversWithIds = servers.map((server, index) => ({
+  ...server,
+  id: `server-${index + 1}`,
+}));

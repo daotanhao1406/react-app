@@ -1,5 +1,6 @@
 import Earth from "3d-earth";
 import { useEffect } from "react";
+
 export default function Map3D() {
   useEffect(() => {
     const cityList = {
@@ -182,7 +183,9 @@ export default function Map3D() {
       console.log("e scene", e.scene);
       e.scene.traverse((obj) => {
         if (obj.isMesh && obj.geometry?.type === "SphereGeometry") {
+          obj.position.x = 2;
           obj.material.map = null;
+          obj.position.x = 2;
           obj.material.color.set("#f0b90b"); // globe: xanh đậm
         } else if (
           obj.isMesh &&
@@ -209,7 +212,7 @@ export default function Map3D() {
   }, []);
 
   return (
-    <div className="relative h-full overflow-hidden">
+    <div className="relative h-full overflow-hidden flex justify-between ">
       <div
         id="container"
         style={{ width: "100%", height: "100vh", background: "black" }}

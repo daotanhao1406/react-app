@@ -1,1 +1,119 @@
 @import "tailwindcss";
+.text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .border-glow {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  }
+  
+  .border-glow-green {
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5), inset 0 0 10px rgba(0, 255, 136, 0.1);
+  }
+  
+  .border-glow-magenta {
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5), inset 0 0 10px rgba(255, 0, 255, 0.1);
+  }
+  
+  .glassmorphism {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+  }
+  
+  .hexagon {
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  }
+  
+  .cyber-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    transition: all 0.3s ease;
+  }
+  
+  .cyber-table-row:hover {
+    background: rgba(0, 255, 255, 0.05);
+    transform: translateX(8px);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  }
+  
+  .cyber-table-row {
+    position: relative;
+    animation: slideUp 0.5s ease-out;
+  }
+  
+ 
+  /* Enhanced cyberpunk red theme effects */
+  .cyber-glow-red {
+    box-shadow: 0 0 10px rgba(255,0,64,0.3), 0 0 20px rgba(255,0,64,0.1);
+  }
+  
+  .cyber-border-scan {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cyber-border-scan::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, transparent, rgba(255,0,64,0.6), transparent);
+    z-index: -1;
+    animation: scan-border 3s linear infinite;
+    opacity: 0;
+    border-radius: inherit;
+  }
+  
+  .cyber-border-scan:hover::after {
+    opacity: 1;
+  }
+  
+  @keyframes scan-border {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  /* Subtle background grid pattern */
+  .cyber-grid-bg {
+    background-image: 
+      linear-gradient(rgba(255,0,64,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,0,64,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  /* Terminal-like text effects */
+  .cyber-terminal-text {
+    text-shadow: 0 0 5px rgba(255,0,64,0.5);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .status-online {
+    animation: pulse 2s infinite;
+  }
+  
+  .scan-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100vh;
+    background: linear-gradient(to bottom, transparent, #00ffff, transparent);
+    animation: scan 3s linear infinite;
+    z-index: 10;
+    pointer-events: none;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
