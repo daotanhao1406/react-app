@@ -1,296 +1,135 @@
-import { Category, Entity, EntityType, User } from '../types/category';
 
-export const users: User[] = [
+// Generate mock users
+export const generateMockUsers = () => [
   {
-    id: '1',
-    name: 'John Doe',
-    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+    _id: "user_001",
+    name: "Alice Johnson",
+    email: "alice.johnson@company.com",
+    age: 28,
+    department: "Engineering",
+    salary: 85000,
+    joinDate: "2022-03-15",
+    isActive: true
   },
   {
-    id: '2',
-    name: 'Jane Smith',
-    avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
+    _id: "user_002", 
+    name: "Bob Smith",
+    email: "bob.smith@company.com",
+    age: 34,
+    department: "Marketing",
+    salary: 72000,
+    joinDate: "2021-07-20",
+    isActive: true
   },
   {
-    id: '3',
-    name: 'Michael Johnson',
-    avatar: 'https://randomuser.me/api/portraits/men/3.jpg',
+    _id: "user_003",
+    name: "Carol Davis", 
+    email: "carol.davis@company.com",
+    age: 29,
+    department: "Engineering",
+    salary: 90000,
+    joinDate: "2022-01-10",
+    isActive: false
   },
   {
-    id: '4',
-    name: 'Emily Davis',
-    avatar: 'https://randomuser.me/api/portraits/women/4.jpg',
+    _id: "user_004",
+    name: "David Wilson",
+    email: "david.wilson@company.com", 
+    age: 42,
+    department: "Sales",
+    salary: 68000,
+    joinDate: "2020-11-05",
+    isActive: true
   },
+  {
+    _id: "user_005",
+    name: "Eva Brown",
+    email: "eva.brown@company.com",
+    age: 31,
+    department: "Engineering", 
+    salary: 95000,
+    joinDate: "2021-09-12",
+    isActive: true
+  },
+  {
+    _id: "user_006",
+    name: "Frank Miller",
+    email: "frank.miller@company.com",
+    age: 26,
+    department: "Marketing",
+    salary: 58000,
+    joinDate: "2023-02-28",
+    isActive: true
+  }
 ];
 
-export const categoryData: Category = {
-  id: '1',
-  name: 'Electronics',
-  description: 'All electronic devices and accessories',
-  icon: 'laptop',
-  parentId: null,
-  createdAt: '2023-05-15T10:30:00Z',
-  createdBy: users[0],
-  children: [
-    {
-      id: '2',
-      name: 'Computers',
-      description: 'Desktop and laptop computers',
-      icon: 'desktop',
-      parentId: '1',
-      createdAt: '2023-05-16T10:30:00Z',
-      createdBy: users[1],
-      children: [
-        {
-          id: '5',
-          name: 'Laptops',
-          description: 'Portable computers',
-          icon: 'laptop',
-          parentId: '2',
-          createdAt: '2023-05-17T10:30:00Z',
-          createdBy: users[2],
-        },
-        {
-          id: '6',
-          name: 'Desktops',
-          description: 'Stationary computers',
-          icon: 'desktop',
-          parentId: '2',
-          createdAt: '2023-05-18T10:30:00Z',
-          createdBy: users[3],
-        },
-      ],
-    },
-    {
-      id: '3',
-      name: 'Mobile Devices',
-      description: 'Smartphones and tablets',
-      icon: 'mobile',
-      parentId: '1',
-      createdAt: '2023-05-19T10:30:00Z',
-      createdBy: users[0],
-      children: [
-        {
-          id: '7',
-          name: 'Smartphones',
-          description: 'Mobile phones with advanced features',
-          icon: 'mobile',
-          parentId: '3',
-          createdAt: '2023-05-20T10:30:00Z',
-          createdBy: users[1],
-        },
-        {
-          id: '8',
-          name: 'Tablets',
-          description: 'Portable touchscreen devices',
-          icon: 'tablet',
-          parentId: '3',
-          createdAt: '2023-05-21T10:30:00Z',
-          createdBy: users[2],
-        },
-      ],
-    },
-    {
-      id: '4',
-      name: 'Accessories',
-      description: 'Electronic accessories',
-      icon: 'usb',
-      parentId: '1',
-      createdAt: '2023-05-22T10:30:00Z',
-      createdBy: users[3],
-      children: [
-        {
-          id: '9',
-          name: 'Cables',
-          description: 'Connection cables',
-          icon: 'usb',
-          parentId: '4',
-          createdAt: '2023-05-23T10:30:00Z',
-          createdBy: users[0],
-        },
-        {
-          id: '10',
-          name: 'Chargers',
-          description: 'Power adapters and chargers',
-          icon: 'thunderbolt',
-          parentId: '4',
-          createdAt: '2023-05-24T10:30:00Z',
-          createdBy: users[1],
-        },
-      ],
-    },
-  ],
-};
-
-export const categoryTreeData = [
+// Generate mock products
+export const generateMockProducts = () => [
   {
-    title: 'Electronics',
-    key: '1',
-    children: [
-      {
-        title: 'Computers',
-        key: '2',
-        children: [
-          { title: 'Laptops', key: '5' },
-          { title: 'Desktops', key: '6' },
-        ],
-      },
-      {
-        title: 'Mobile Devices',
-        key: '3',
-        children: [
-          { title: 'Smartphones', key: '7' },
-          { title: 'Tablets', key: '8' },
-        ],
-      },
-      {
-        title: 'Accessories',
-        key: '4',
-        children: [
-          { title: 'Cables', key: '9' },
-          { title: 'Chargers', key: '10' },
-        ],
-      },
-    ],
+    _id: "prod_001",
+    name: "Wireless Headphones",
+    category: "Electronics",
+    price: 199.99,
+    stock: 45,
+    rating: 4.5,
+    tags: ["audio", "wireless", "bluetooth"],
+    createdAt: "2023-01-15"
   },
+  {
+    _id: "prod_002",
+    name: "Gaming Laptop",
+    category: "Electronics", 
+    price: 1299.99,
+    stock: 12,
+    rating: 4.8,
+    tags: ["computer", "gaming", "laptop"],
+    createdAt: "2023-02-20"
+  },
+  {
+    _id: "prod_003",
+    name: "Coffee Maker",
+    category: "Appliances",
+    price: 89.99,
+    stock: 23,
+    rating: 4.2,
+    tags: ["kitchen", "coffee", "appliance"],
+    createdAt: "2023-03-10"
+  },
+  {
+    _id: "prod_004",
+    name: "Smartphone",
+    category: "Electronics",
+    price: 699.99,
+    stock: 67,
+    rating: 4.6,
+    tags: ["phone", "mobile", "android"],
+    createdAt: "2023-01-25"
+  },
+  {
+    _id: "prod_005",
+    name: "Desk Chair",
+    category: "Furniture",
+    price: 249.99,
+    stock: 18,
+    rating: 4.3,
+    tags: ["office", "chair", "ergonomic"],
+    createdAt: "2023-02-05"
+  },
+  {
+    _id: "prod_006",
+    name: "Bluetooth Speaker",
+    category: "Electronics",
+    price: 79.99,
+    stock: 34,
+    rating: 4.1,
+    tags: ["audio", "bluetooth", "portable"],
+    createdAt: "2023-03-20"
+  }
 ];
 
-export const relatedEntities: Entity[] = [
-  {
-    id: '1',
-    name: 'MacBook Pro',
-    type: EntityType.PRODUCT,
-    description: 'High-performance laptop for professionals',
-    createdAt: '2023-05-15T10:30:00Z',
-    createdBy: users[0],
-  },
-  {
-    id: '2',
-    name: 'Laptop Buying Guide',
-    type: EntityType.DOCUMENT,
-    description: 'Comprehensive guide to buying laptops',
-    createdAt: '2023-06-20T14:15:00Z',
-    createdBy: users[1],
-  },
-  {
-    id: '3',
-    name: 'Dell XPS 13',
-    type: EntityType.PRODUCT,
-    description: 'Premium ultrabook with InfinityEdge display',
-    createdAt: '2023-07-05T09:45:00Z',
-    createdBy: users[2],
-  },
-  {
-    id: '4',
-    name: 'Laptop Maintenance Tips',
-    type: EntityType.DOCUMENT,
-    description: 'Tips for maintaining your laptop',
-    createdAt: '2023-08-10T11:20:00Z',
-    createdBy: users[3],
-  },
-  {
-    id: '5',
-    name: 'ASUS ROG Gaming Laptop',
-    type: EntityType.PRODUCT,
-    description: 'High-performance gaming laptop',
-    createdAt: '2023-09-25T16:30:00Z',
-    createdBy: users[0],
-  },
-  {
-    id: '6',
-    name: 'Laptop Unboxing',
-    type: EntityType.VIDEO,
-    description: 'Video showing laptop unboxing experience',
-    createdAt: '2023-10-12T13:10:00Z',
-    createdBy: users[1],
-  },
-  {
-    id: '7',
-    name: 'Laptop Schematics',
-    type: EntityType.IMAGE,
-    description: 'Technical schematics of laptop components',
-    createdAt: '2023-11-05T08:55:00Z',
-    createdBy: users[2],
-  },
-  {
-    id: '8',
-    name: 'Laptop Repair Service',
-    type: EntityType.SERVICE,
-    description: 'Professional laptop repair and maintenance service',
-    createdAt: '2023-12-18T15:40:00Z',
-    createdBy: users[3],
-  },
-];
+export const MOCK_DATASETS = {
+  users: generateMockUsers(),
+  products: generateMockProducts()
+} as const;
 
-export const servers = [
-  {
-    name: "NEXUS-ALPHA",
-    ip: "192.168.1.100",
-    country: "United States",
-    countryCode: "us",
-    latency: 12,
-    isOnline: true,
-  },
-  {
-    name: "MATRIX-BETA",
-    ip: "10.0.0.55",
-    country: "Japan",
-    countryCode: "jp",
-    latency: 8,
-    isOnline: true,
-  },
-  {
-    name: "ZENITH-GAMMA",
-    ip: "172.16.0.89",
-    country: "Germany",
-    countryCode: "de",
-    latency: 15,
-    isOnline: true,
-  },
-  {
-    name: "AURORA-DELTA",
-    ip: "203.0.113.42",
-    country: "Australia",
-    countryCode: "au",
-    latency: 45,
-    isOnline: true,
-  },
-  {
-    name: "PHOENIX-ECHO",
-    ip: "198.51.100.21",
-    country: "Canada",
-    countryCode: "ca",
-    latency: 18,
-    isOnline: true,
-  },
-  {
-    name: "CIPHER-FOXTROT",
-    ip: "51.15.128.77",
-    country: "France",
-    countryCode: "fr",
-    latency: 22,
-    isOnline: true,
-  },
-  {
-    name: "VERTEX-GOLF",
-    ip: "139.162.45.193",
-    country: "Singapore",
-    countryCode: "sg",
-    latency: 35,
-    isOnline: true,
-  },
-  {
-    name: "QUANTUM-HOTEL",
-    ip: "85.204.76.44",
-    country: "Brazil",
-    countryCode: "br",
-    latency: null,
-    isOnline: false,
-  },
-];
-
-// Add IDs to servers for compatibility
-export const serversWithIds = servers.map((server, index) => ({
-  ...server,
-  id: `server-${index + 1}`,
-}));
+export type DatasetType = keyof typeof MOCK_DATASETS;
