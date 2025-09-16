@@ -96,7 +96,6 @@ export default function TextEditor({
               tabSize: 2,
               insertSpaces: true,
             }}
-            data-testid="monaco-editor"
           />
         </div>
       </Card>
