@@ -1,0 +1,98 @@
+{
+  "token": {
+    "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "borderRadius": 8,
+    "borderRadiusSM": 8,
+    "borderRadiusLG": 16,
+    "borderRadiusOuter": 14,
+    "controlHeight": 40,
+    "controlHeightSM": 32,
+    "controlHeightLG": 48,
+    "boxShadow": "0 4px 14px 0 rgba(0, 0, 0, 0.05)",
+    "wireframe": false,
+    "colorPrimary": "#3641f5",
+    "colorInfo": "#3641f5",
+    "colorSuccess": "#12b76a",
+    "colorError": "#f04438",
+    "colorWarning": "#f79009",
+    "colorTextBase": "#1d2939",
+    "colorTextSecondary": "#667085"
+  },
+  "components": {
+    "Button": {
+      "fontWeight": 600,
+      "contentFontSize": 15
+    },
+    "Input": {
+      "activeShadow": "0 0 0 2px rgba(0, 111, 238, 0.2)",
+      "inputFontSize": 15,
+      "hoverBorderColor": "#3641f5"
+    },
+    "Select": {
+      "controlHeight": 40,
+      "controlItemBgActive": "#F4F4F5"
+    },
+    "Card": {
+      "headerFontSize": 18,
+      "headerFontWeight": 600,
+      "actionsLiMargin": "0"
+    },
+    "Table": {
+      "headerBg": "#F4F4F5",
+      "headerColor": "#71717A",
+      "rowHoverBg": "#F4F4F5",
+      "borderColor": "#E4E4E7"
+    },
+    "Tag": {
+      "defaultBg": "#F4F4F5",
+      "defaultColor": "#3F3F46",
+      "borderRadiusSM": 8
+    },
+    "Modal": {
+      "titleFontSize": 20
+    },
+    "Segmented": {
+      "itemSelectedBg": "#FFFFFF",
+      "itemSelectedShadow": "0 2px 10px rgba(0,0,0,0.1)",
+      "trackBg": "#F4F4F5",
+      "borderRadius": 12,
+      "controlHeight": 40
+    },
+    "Tabs": {
+      "titleFontSize": 15,
+      "itemColor": "#71717A",
+      "itemSelectedColor": "#3641f5",
+      "inkBarColor": "#3641f5"
+    },
+    "Transfer": {
+      "listHeight": 280,
+      "headerHeight": 44,
+      "itemHeight": 36,
+      "controlItemBgActive": "#F4F4F5"
+    },
+    "Switch": {
+      "handleSize": 22,
+      "trackHeight": 26,
+      "trackMinWidth": 48
+    },
+    "Radio": {
+      "dotSize": 8,
+      "radioSize": 20,
+      "buttonSolidCheckedBg": "#3641f5"
+    },
+    "Checkbox": {
+      "borderRadiusSM": 5,
+      "algorithm": true
+    },
+    "Tooltip": {
+      "algorithm": true,
+      "controlHeight": 32,
+      "paddingSM": 14,
+      "paddingXS": 12
+    },
+    "Message": {
+      "borderRadiusLG": 8,
+      "boxShadow": "      0 6px 16px 0 rgba(0, 0, 0, 0.08),      0 3px 6px -4px rgba(0, 0, 0, 0.12),      0 9px 28px 8px rgba(0, 0, 0, 0.05)"
+    }
+  }
+}
