@@ -21,7 +21,9 @@
   "components": {
     "Button": {
       "fontWeight": 600,
-      "contentFontSize": 15
+      "contentFontSize": 15,
+      "defaultShadow": "0 2px 10px rgba(0, 0, 0, 0.05)",
+      "primaryShadow": "0 4px 14px 0 rgba(0, 111, 238, 0.4)"
     },
     "Input": {
       "activeShadow": "0 0 0 2px rgba(0, 111, 238, 0.2)",
