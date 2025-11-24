@@ -1,9 +1,9 @@
-import Variant7 from "./components/Variant7";
+import Navbar from "./components/Navbar";
 
 const App: React.FC = () => {
   return (
-    <div className="flex h-full flex-1 w-full">
-      <Variant7 />
+    <div className="flex flex-col h-full flex-1 w-full">
+      <Navbar />
     </div>
   );
 };
