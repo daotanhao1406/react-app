@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, Space } from "antd";
 import type { Document } from "./data/document";
 import DocumentDetailsDrawer from "./components/DocumentDetailsDrawer";
+import { DocumentFilter } from "./components/DocumentFilter";
+import { DocumentFilter2 } from "./components/DocumentFilter2";
 
 // todo: remove mock functionality
 const mockDocument: Document = {
@@ -102,6 +104,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
+      <DocumentFilter onFilter={console.log} />
+      <DocumentFilter2 />
       <div className="max-w-2xl mx-auto">
         <div className="mb-8">
           <h1 className="text-2xl font-semibold mb-2 text-gray-900">

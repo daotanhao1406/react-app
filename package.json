@@ -18,6 +18,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "3d-earth": "^1.0.8",
     "antd": "^5.25.1",
+    "dayjs": "^1.11.19",
     "framer-motion": "^12.4.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
