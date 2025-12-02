@@ -1,154 +1,326 @@
 import { useState } from "react";
-import { Button, Space } from "antd";
-import type { Document } from "./data/document";
-import DocumentDetailsDrawer from "./components/DocumentDetailsDrawer";
-import { DocumentFilter } from "./components/DocumentFilter";
-import { DocumentFilter2 } from "./components/DocumentFilter2";
+import {
+  Button,
+  Card,
+  Checkbox,
+  ConfigProvider,
+  DatePicker,
+  Descriptions,
+  Dropdown,
+  Flex,
+  Input,
+  Layout,
+  Segmented,
+  Select,
+  Space,
+  Switch,
+  Table,
+  Tabs,
+  Tag,
+  theme,
+  ThemeConfig,
+} from "antd";
+import {
+  CheckCircleOutlined,
+  ClockCircleOutlined,
+  CloseCircleOutlined,
+  DownOutlined,
+  ExclamationCircleOutlined,
+  SyncOutlined,
+} from "@ant-design/icons";
 
-// todo: remove mock functionality
-const mockDocument: Document = {
-  id: "1",
-  documentNumber: "CV-2024/1234-UBND",
-  issuingAuthority: "Ủy ban Nhân dân Thành phố Hà Nội",
-  documentDate: "15/11/2024",
-  excerpt:
-    "Về việc triển khai kế hoạch phát triển kinh tế - xã hội năm 2025, đẩy mạnh cải cách hành chính và nâng cao chất lượng dịch vụ công trực tuyến cho người dân và doanh nghiệp trên địa bàn thành phố. Văn bản này yêu cầu các cơ quan, đơn vị liên quan chuẩn bị báo cáo chi tiết về tình hình thực hiện nhiệm vụ trong năm qua và đề xuất phương hướng hoạt động cho năm tiếp theo.",
-  documentType: "Công văn",
-  urgencyLevel: "urgent",
-  deadline: "30/11/2024",
-  arrivalDate: "16/11/2024",
-  field: "Hành chính",
-  securityLevel: "internal",
-  status: "processing",
-  transferMethod: "Văn thư điện tử",
-  backupMethod: "Lưu trữ số",
-  signatoryName: "Nguyễn Văn An",
-  signatoryPosition: "Phó Chủ tịch UBND",
-  attachments: [
-    {
-      id: "att1",
-      fileName: "Ke_hoach_2025.pdf",
-      fileSize: 2458624,
-      pageCount: 15,
-      fileType: "pdf",
-      url: "/files/ke-hoach-2025.pdf",
+const dataSource = [
+  {
+    key: "1",
+    name: "Mike",
+    age: 32,
+    address: "10 Downing Street",
+  },
+  {
+    key: "2",
+    name: "John",
+    age: 42,
+    address: "10 Downing Street",
+  },
+];
+
+const columns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "Age",
+    dataIndex: "age",
+    key: "age",
+  },
+  {
+    title: "Address",
+    dataIndex: "address",
+    key: "address",
+  },
+];
+const presets = [
+  { status: "success", icon: <CheckCircleOutlined /> },
+  { status: "processing", icon: <SyncOutlined spin /> },
+  { status: "warning", icon: <ExclamationCircleOutlined /> },
+  { status: "error", icon: <CloseCircleOutlined /> },
+  { status: "default", icon: <ClockCircleOutlined /> },
+];
+
+const darkTheme: ThemeConfig = {
+  token: {
+    fontFamily:
+      "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    borderRadius: 8,
+    borderRadiusSM: 8,
+    borderRadiusLG: 16,
+    borderRadiusOuter: 14,
+    controlHeight: 40,
+    controlHeightSM: 32,
+    controlHeightLG: 48,
+    boxShadow: "0 4px 14px 0 rgba(0, 0, 0, 0.05)",
+    wireframe: false,
+    colorPrimary: "#465fff",
+    colorInfo: "#465fff",
+    colorSuccess: "#12b76a",
+    colorError: "#FB2C32",
+    colorWarning: "#fdb022",
+    colorTextBase: "#e8e9eb",
+    colorText: "#e8e9eb",
+    colorTextSecondary: "#98a2b3",
+    colorTextDescription: "#98a2b3",
+    colorBgBase: "#101828",
+    colorBgContainer: "#171f2f",
+    colorBgElevated: "#1a2231",
+    colorBorder: "#344054",
+    colorBorderSecondary: "#344054",
+  },
+  components: {
+    Layout: {
+      bodyBg: "#101828",
+      footerBg: "#101828",
+      headerBg: "#101828",
     },
-    {
-      id: "att2",
-      fileName: "Phu_luc_so_lieu.xlsx",
-      fileSize: 524288,
-      pageCount: 3,
-      fileType: "xlsx",
-      url: "/files/phu-luc.xlsx",
+    Button: {
+      fontWeight: 600,
+      contentFontSize: 15,
+      defaultShadow: "0 2px 10px rgba(0, 0, 0, 0.05)",
+      primaryShadow: "0 4px 14px 0 rgba(0, 111, 238, 0.4)",
+      colorBgContainer: "#1d2939",
+      colorText: "#98a2b3",
     },
-    {
-      id: "att3",
-      fileName: "Bieu_mau_bao_cao.docx",
-      fileSize: 156432,
-      pageCount: 5,
-      fileType: "docx",
-      url: "/files/bieu-mau.docx",
+    Input: {
+      activeShadow: "0 0 0 2px rgba(0, 111, 238, 0.2)",
+      inputFontSize: 15,
+      hoverBorderColor: "#465fff",
     },
-  ],
-  relatedDocuments: [
-    {
-      id: "rel1",
-      documentNumber: "QD-2023/456-UBND",
-      title: "Quyết định phê duyệt kế hoạch 2024",
+    Select: {
+      controlHeight: 40,
+      controlItemBgActive: "#262d3c",
     },
-    {
-      id: "rel2",
-      documentNumber: "BC-2024/789-STC",
-      title: "Báo cáo tình hình ngân sách",
+    Card: {
+      headerFontSize: 18,
+      actionsLiMargin: "0",
     },
-  ],
+    // Table: {
+    //   headerBg: "#101828",
+    //   headerColor: "#71717A",
+    //   rowHoverBg: "#F4F4F5",
+    //   borderColor: "#E4E4E7",
+    // },
+    Tag: {
+      defaultBg: "#1D2536",
+      defaultColor: "#98a2b3",
+      borderRadiusSM: 8,
+    },
+    Modal: {
+      titleFontSize: 20,
+    },
+    Dropdown: {
+      colorBgElevated: "#1a2231",
+    },
+    Segmented: {
+      itemSelectedBg: "#1d2939",
+      // itemSelectedShadow: "0 2px 10px rgba(0,0,0,0.1)",
+      trackBg: "#101828",
+      borderRadius: 12,
+      controlHeight: 40,
+    },
+    Tabs: {
+      titleFontSize: 15,
+      // itemColor: "#71717A",
+      itemSelectedColor: "#465fff",
+      inkBarColor: "#465fff",
+    },
+    Transfer: {
+      listHeight: 280,
+      headerHeight: 44,
+      itemHeight: 36,
+      controlItemBgActive: "#101828",
+    },
+    Switch: {
+      handleSize: 22,
+      trackHeight: 26,
+      trackMinWidth: 48,
+    },
+    Radio: {
+      dotSize: 8,
+      radioSize: 20,
+      buttonSolidCheckedBg: "#465fff",
+    },
+    Checkbox: {
+      borderRadiusSM: 5,
+      algorithm: true,
+    },
+    Tooltip: {
+      algorithm: true,
+      controlHeight: 32,
+      paddingSM: 14,
+      paddingXS: 12,
+    },
+    Message: {
+      borderRadiusLG: 8,
+      boxShadow:
+        "      0 6px 16px 0 rgba(0, 0, 0, 0.08),      0 3px 6px -4px rgba(0, 0, 0, 0.12),      0 9px 28px 8px rgba(0, 0, 0, 0.05)",
+    },
+  },
+  algorithm: theme.darkAlgorithm,
 };
-
-// todo: remove mock functionality
-const mockDocumentNoAttachments: Document = {
-  ...mockDocument,
-  id: "2",
-  documentNumber: "TB-2024/5678-BTC",
-  issuingAuthority: "Bộ Tài chính",
-  urgencyLevel: "very_urgent",
-  securityLevel: "confidential",
-  status: "pending",
-  attachments: [],
-  relatedDocuments: [],
-};
-
 export default function App() {
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [currentDoc, setCurrentDoc] = useState<Document | null>(null);
-
-  const showDrawer = (doc: Document, withLoading = false) => {
-    if (withLoading) {
-      setLoading(true);
-      setOpen(true);
-      setCurrentDoc(null);
-      setTimeout(() => {
-        setCurrentDoc(doc);
-        setLoading(false);
-      }, 1500);
-    } else {
-      setCurrentDoc(doc);
-      setOpen(true);
-    }
-  };
-
-  const onClose = () => {
-    setOpen(false);
-    setCurrentDoc(null);
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <DocumentFilter onFilter={console.log} />
-      <DocumentFilter2 />
-      <div className="max-w-2xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-2xl font-semibold mb-2 text-gray-900">
-            Document Details Drawer
-          </h1>
-          <p className="text-gray-500">
-            Component hiển thị chi tiết văn bản với 2 tab: Thông tin chung và
-            Xem trước file đính kèm.
-          </p>
-        </div>
+    <ConfigProvider theme={darkTheme}>
+      <Layout>
+        <Layout.Header>123</Layout.Header>
+        <Layout.Content
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            maxWidth: 900,
+            gap: 20,
+            alignItems: "center",
+            padding: 20,
+          }}
+        >
+          <Tabs
+            items={[
+              {
+                label: "tab1",
+                key: "tab1",
+                children: (
+                  <Dropdown
+                    menu={{
+                      items: [
+                        {
+                          key: "1",
+                          label: (
+                            <a
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              href="https://www.antgroup.com"
+                            >
+                              1st menu item
+                            </a>
+                          ),
+                        },
+                        {
+                          key: "2",
+                          label: (
+                            <a
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              href="https://www.aliyun.com"
+                            >
+                              2nd menu item (disabled)
+                            </a>
+                          ),
+                          disabled: true,
+                        },
+                        {
+                          key: "3",
+                          label: (
+                            <a
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              href="https://www.luohanacademy.com"
+                            >
+                              3rd menu item (disabled)
+                            </a>
+                          ),
+                          disabled: true,
+                        },
+                        {
+                          key: "4",
+                          danger: true,
+                          label: "a danger item",
+                        },
+                      ],
+                    }}
+                  >
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        Hover me
+                        <DownOutlined />
+                      </Space>
+                    </a>
+                  </Dropdown>
+                ),
+              },
+              {
+                label: "tab2",
+                key: "tab2",
+              },
+            ]}
+          />
+          <Descriptions title="User Info">
+            <Descriptions.Item label="UserName">Zhou Maomao</Descriptions.Item>
+          </Descriptions>
+          <Flex>
+            <Button type="primary">new button</Button>
+            <Button>default button</Button>
+          </Flex>
 
-        <Space wrap size="middle">
-          <Button
-            type="primary"
-            size="large"
-            onClick={() => showDrawer(mockDocument)}
-            data-testid="button-open-drawer-full"
+          <Checkbox onChange={console.log}>Checkbox</Checkbox>
+          <DatePicker />
+          <Input placeholder="Basic usage" />
+          <Select
+            defaultValue="lucy"
+            style={{ width: 120 }}
+            options={[
+              { value: "jack", label: "Jack" },
+              { value: "lucy", label: "Lucy" },
+              { value: "Yiminghe", label: "yiminghe" },
+              { value: "disabled", label: "Disabled", disabled: true },
+            ]}
+          />
+          <Switch defaultChecked />
+          <Flex gap="small" align="center" wrap>
+            {presets.map(({ status, icon }) => (
+              <Tag key={status} color={status} icon={icon}>
+                {status}
+              </Tag>
+            ))}
+          </Flex>
+          <Card
+            title="Default size card"
+            extra={<a href="#">More</a>}
+            style={{ width: 300 }}
           >
-            Mở Drawer (Đầy đủ)
-          </Button>
-          <Button
-            size="large"
-            onClick={() => showDrawer(mockDocumentNoAttachments)}
-            data-testid="button-open-drawer-no-attachments"
-          >
-            Mở Drawer (Không có file)
-          </Button>
-          <Button
-            size="large"
-            onClick={() => showDrawer(mockDocument, true)}
-            data-testid="button-open-drawer-loading"
-          >
-            Mở Drawer (Loading)
-          </Button>
-        </Space>
-
-        <DocumentDetailsDrawer
-          open={open}
-          onClose={onClose}
-          document={currentDoc}
-          loading={loading}
-        />
-      </div>
-    </div>
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+          </Card>
+          <Segmented<string>
+            options={["Daily", "Weekly", "Monthly", "Quarterly", "Yearly"]}
+            onChange={(value) => {
+              console.log(value); // string
+            }}
+          />
+          <Table dataSource={dataSource} columns={columns} />
+        </Layout.Content>
+        <Layout.Footer>Footer</Layout.Footer>
+      </Layout>
+    </ConfigProvider>
   );
 }
