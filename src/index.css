@@ -117,3 +117,40 @@
   .animate-slide-up {
     animation: slideUp 0.3s ease-out;
   }
+
+  .grid-pattern {
+  background-image: 
+    linear-gradient(to right, hsl(var(--border) / 0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border) / 0.5) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.dark .grid-pattern {
+  background-image: 
+    linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
+}
+
+.header-gradient {
+  background: 
+    radial-gradient(ellipse at top left, hsl(236 91% 58% / 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at top right, hsl(280 70% 55% / 0.06) 0%, transparent 50%);
+}
+
+.dark .header-gradient {
+  background: 
+    radial-gradient(ellipse at top left, hsl(236 91% 65% / 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at top right, hsl(280 60% 60% / 0.08) 0%, transparent 50%);
+}
+
+.header-fade {
+  mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+}
+
+.grid-background {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, hsl(var(--primary) / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--primary) / 0.06) 1px, transparent 1px);
+}
