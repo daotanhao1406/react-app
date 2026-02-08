@@ -22,6 +22,7 @@ import DocumentHeader from "../components/DocumentHeader";
 import MeetingInfoCard from "../components/MeetingInfoCard";
 import { motion } from "framer-motion";
 import { InfoCircleFilled, InfoOutlined } from "@ant-design/icons";
+import ComputerCardPOC6 from "../components/ComputerCard";
 
 const document = {
   docLabel: "Công văn đến",
@@ -154,7 +155,13 @@ function SectionCard({
     </motion.div>
   );
 }
-
+const computerData = {
+  name: "Gaming PC",
+  status: "Online",
+  cpu: "Intel i9-13900K",
+  ram: "64GB DDR5",
+  ip: "192.168.1.100",
+};
 export default function DocumentDetailsPage() {
   return (
     <div className="relative min-h-screen w-full ">
@@ -211,6 +218,7 @@ export default function DocumentDetailsPage() {
           <MeetingInfoCard document={document} isDark={false} />
         </div>
       </div>
+      <ComputerCardPOC6 data={computerData} hasControl={true} />
     </div>
   );
 }
