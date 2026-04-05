@@ -1,23 +1,29 @@
-import { ConfigProvider, Layout } from "antd";
-import DocumentDetailsPage from "./page/DocumentDetailsPage";
-import { darkTheme } from "./data/theme";
+import { ConfigProvider } from "antd";
+import DashboardPage from "./pages/DashboardPage";
 
 export default function App() {
   return (
-    <ConfigProvider theme={darkTheme}>
-      <Layout>
-        <Layout.Content
-          style={{
-            display: "flex",
-            height: "100vh",
-            padding: 20,
-            width: "100%",
-            flex: 1,
-          }}
-        >
-          <DocumentDetailsPage />
-        </Layout.Content>
-      </Layout>
+    <ConfigProvider
+      theme={{
+        token: {
+          fontFamily: "BaiJamjuree, sans-serif",
+          fontSize: 12,
+          colorTextBase: "#e9e7e2e6",
+          colorTextSecondary: "#8e867bcc",
+          colorBorder: "#2a2a2a",
+          colorBorderSecondary: "#2c292680",
+          borderRadius: 4,
+        },
+        components: {
+          Card: {
+            headerBg: "#151515",
+            colorBgContainer: "#151515",
+          },
+          Typography: {},
+        },
+      }}
+    >
+      <DashboardPage />
     </ConfigProvider>
   );
 }

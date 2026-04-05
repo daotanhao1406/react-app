@@ -1,135 +1,123 @@
+import type { MarketIndex, NewsItem, DailyBriefing } from "../types/dashboard";
 
-// Generate mock users
-export const generateMockUsers = () => [
+export const MARKET_INDICES: MarketIndex[] = [
   {
-    _id: "user_001",
-    name: "Alice Johnson",
-    email: "alice.johnson@company.com",
-    age: 28,
-    department: "Engineering",
-    salary: 85000,
-    joinDate: "2022-03-15",
-    isActive: true
+    id: "sp500",
+    name: "S&P 500",
+    ticker: "SPX",
+    price: 6582.69,
+    change: 51.23,
+    changePercent: 0.83,
   },
   {
-    _id: "user_002", 
-    name: "Bob Smith",
-    email: "bob.smith@company.com",
-    age: 34,
-    department: "Marketing",
-    salary: 72000,
-    joinDate: "2021-07-20",
-    isActive: true
+    id: "nasdaq",
+    name: "Nasdaq",
+    ticker: "IXIC",
+    price: 21879.18,
+    change: 301.45,
+    changePercent: 1.54,
   },
   {
-    _id: "user_003",
-    name: "Carol Davis", 
-    email: "carol.davis@company.com",
-    age: 29,
-    department: "Engineering",
-    salary: 90000,
-    joinDate: "2022-01-10",
-    isActive: false
+    id: "djia",
+    name: "Dow Jones",
+    ticker: "DJI",
+    price: 46584.67,
+    change: 163.22,
+    changePercent: 0.35,
   },
   {
-    _id: "user_004",
-    name: "David Wilson",
-    email: "david.wilson@company.com", 
-    age: 42,
-    department: "Sales",
-    salary: 68000,
-    joinDate: "2020-11-05",
-    isActive: true
+    id: "rut",
+    name: "Russell 2000",
+    ticker: "RUT",
+    price: 2538.84,
+    change: 32.67,
+    changePercent: 1.55,
   },
   {
-    _id: "user_005",
-    name: "Eva Brown",
-    email: "eva.brown@company.com",
-    age: 31,
-    department: "Engineering", 
-    salary: 95000,
-    joinDate: "2021-09-12",
-    isActive: true
+    id: "vix",
+    name: "VIX",
+    ticker: "VIX",
+    price: 23.87,
+    change: -0.02,
+    changePercent: -0.08,
   },
-  {
-    _id: "user_006",
-    name: "Frank Miller",
-    email: "frank.miller@company.com",
-    age: 26,
-    department: "Marketing",
-    salary: 58000,
-    joinDate: "2023-02-28",
-    isActive: true
-  }
 ];
 
-// Generate mock products
-export const generateMockProducts = () => [
+export const NEWS_ITEMS: NewsItem[] = [
   {
-    _id: "prod_001",
-    name: "Wireless Headphones",
-    category: "Electronics",
-    price: 199.99,
-    stock: 45,
-    rating: 4.5,
-    tags: ["audio", "wireless", "bluetooth"],
-    createdAt: "2023-01-15"
+    id: "1",
+    headline:
+      "Rescue team in Iran face 'harrowing and dangerous' search for US crew member",
+    source: "BBC",
+    time: "12m",
+    category: "World",
   },
   {
-    _id: "prod_002",
-    name: "Gaming Laptop",
-    category: "Electronics", 
-    price: 1299.99,
-    stock: 12,
-    rating: 4.8,
-    tags: ["computer", "gaming", "laptop"],
-    createdAt: "2023-02-20"
+    id: "2",
+    headline: "At least four people killed in Russian attacks on Ukraine",
+    source: "Jazeera",
+    time: "26m",
+    category: "World",
   },
   {
-    _id: "prod_003",
-    name: "Coffee Maker",
-    category: "Appliances",
-    price: 89.99,
-    stock: 23,
-    rating: 4.2,
-    tags: ["kitchen", "coffee", "appliance"],
-    createdAt: "2023-03-10"
+    id: "3",
+    headline:
+      "Senegal bars ministers from foreign travel as oil price rise bites",
+    source: "BBC",
+    time: "38m",
+    category: "Energy",
   },
   {
-    _id: "prod_004",
-    name: "Smartphone",
-    category: "Electronics",
-    price: 699.99,
-    stock: 67,
-    rating: 4.6,
-    tags: ["phone", "mobile", "android"],
-    createdAt: "2023-01-25"
+    id: "4",
+    headline: "Trump seeks $152m to reopen notorious Alcatraz prison",
+    source: "BBC",
+    time: "52m",
+    category: "Politics",
   },
   {
-    _id: "prod_005",
-    name: "Desk Chair",
-    category: "Furniture",
-    price: 249.99,
-    stock: 18,
-    rating: 4.3,
-    tags: ["office", "chair", "ergonomic"],
-    createdAt: "2023-02-05"
+    id: "5",
+    headline: "LIVE: Manchester City vs Liverpool - FA Cup quarterfinal",
+    source: "Jazeera",
+    time: "1h",
+    category: "World",
   },
   {
-    _id: "prod_006",
-    name: "Bluetooth Speaker",
-    category: "Electronics",
-    price: 79.99,
-    stock: 34,
-    rating: 4.1,
-    tags: ["audio", "bluetooth", "portable"],
-    createdAt: "2023-03-20"
-  }
+    id: "6",
+    headline:
+      "Fed signals cautious stance on rate cuts amid inflation uncertainty",
+    source: "Reuters",
+    time: "1h 12m",
+    category: "Markets",
+  },
+  {
+    id: "7",
+    headline:
+      "Oil surges 3% on Middle East tensions and supply disruption fears",
+    source: "Bloomberg",
+    time: "1h 34m",
+    category: "Energy",
+  },
+  {
+    id: "8",
+    headline:
+      "China GDP growth hits 5.2% target, beating analysts expectations",
+    source: "FT",
+    time: "2h",
+    category: "Markets",
+  },
 ];
 
-export const MOCK_DATASETS = {
-  users: generateMockUsers(),
-  products: generateMockProducts()
-} as const;
+export const DAILY_BRIEFING: DailyBriefing = {
+  date: "Sat, Apr 4, 2026",
+  generatedAt: "06:49 UTC · Apr 4, 2026",
+  sources: 148,
+  summary: `Active US–Iran hostilities have escalated to a critical threshold: two US warplanes (F-35C and F/A-18 Hornet) were shot down over/near Iran within a single operational period, with at least one crew member rescued and a combat search-and-rescue mission ongoing deep inside Iranian territory. Simultaneously, Iran struck a US Army CH-47 Chinook at Camp Bonhring, Kuwait via drone, marking a direct attack on a US base in a Gulf partner state. Prediction markets place an 63.3% probability on US ground forces entering Iran by April 30, a 17-point single-day surge, signaling that traders assess escalation to full conventional conflict as near-certain in the near term.`,
+};
 
-export type DatasetType = keyof typeof MOCK_DATASETS;
+export const DEFAULT_LAYOUT = [
+  { i: "daily-briefing", x: 0, y: 0, w: 5, h: 9, minW: 3, minH: 5 },
+  { i: "markets", x: 0, y: 9, w: 5, h: 8, minW: 3, minH: 5 },
+  { i: "conflict", x: 5, y: 0, w: 6, h: 9, minW: 3, minH: 5 },
+  { i: "news", x: 11, y: 0, w: 9, h: 17, minW: 4, minH: 6 },
+  { i: "market-map", x: 5, y: 9, w: 6, h: 8, minW: 3, minH: 5 },
+];
