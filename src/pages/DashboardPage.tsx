@@ -8,6 +8,7 @@ import MarketsWidget from "../components/widgets/MarketsWidget";
 import ConflictMonitorWidget from "../components/widgets/ConflictMonitorWidget";
 import NewsFeedWidget from "../components/widgets/NewsFeedWidget";
 import MarketMapWidget from "../components/widgets/MarketMapWidget";
+import WidgetManagerDropdown from "../components/WidgetManagerDropdown";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -39,11 +40,15 @@ const WIDGET_COMPONENTS: Record<string, React.ReactNode> = {
 const WIDGET_KEYS = Object.keys(WIDGET_COMPONENTS);
 
 const DashboardPage: React.FC = () => {
-  const [layouts, setLayouts] = useState<Partial<Record<string, Layout>>>(DEFAULT_LAYOUTS);
+  const [layouts, setLayouts] =
+    useState<Partial<Record<string, Layout>>>(DEFAULT_LAYOUTS);
 
-  const onLayoutChange = useCallback((_: Layout, allLayouts: Partial<Record<string, Layout>>) => {
-    setLayouts(allLayouts);
-  }, []);
+  const onLayoutChange = useCallback(
+    (_: Layout, allLayouts: Partial<Record<string, Layout>>) => {
+      setLayouts(allLayouts);
+    },
+    [],
+  );
 
   return (
     <div
@@ -55,6 +60,7 @@ const DashboardPage: React.FC = () => {
         flexDirection: "column",
       }}
     >
+      <WidgetManagerDropdown />
       {/* Top bar */}
       <div
         style={{
