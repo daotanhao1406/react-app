@@ -60,7 +60,6 @@ const DashboardPage: React.FC = () => {
         flexDirection: "column",
       }}
     >
-      <WidgetManagerDropdown />
       {/* Top bar */}
       <div
         style={{

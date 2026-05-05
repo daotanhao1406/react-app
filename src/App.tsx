@@ -1,5 +1,6 @@
 import { ConfigProvider } from "antd";
 import DashboardPage from "./pages/DashboardPage";
+import SqlPage from "./pages/SqlPage";
 
 export default function App() {
   return (
@@ -23,7 +24,7 @@ export default function App() {
         },
       }}
     >
-      <DashboardPage />
+      <SqlPage />
     </ConfigProvider>
   );
 }

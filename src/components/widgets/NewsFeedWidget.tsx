@@ -3,6 +3,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { NewsItem, NewsTab } from "../../types/dashboard";
 import { NEWS_ITEMS } from "../../data/mockData";
 import WidgetCard from "./WidgetCard";
+import { Button, Card } from "antd";
 
 const TABS: NewsTab[] = ["News", "State", "Wikipedia", "Files", "Music"];
 
@@ -90,130 +91,14 @@ const NewsFeedWidget: React.FC = () => {
   );
 
   return (
-    <WidgetCard widgetId="news" title="News Feed" timestamp="24m ago">
-      {/* Tabs row */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderBottom: "1px solid #222",
-          paddingBottom: 8,
-          marginBottom: 8,
-          flexShrink: 0,
-          gap: 8,
-        }}
+    <Card className="widget-drag-handle group">
+      <Button
+        className="opacity-0 group-hover:opacity-100"
+        onClick={(e) => console.log("click")}
       >
-        <div style={{ display: "flex", gap: 2 }}>
-          {TABS.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              style={{
-                background: activeTab === tab ? "#f0b90b" : "transparent",
-                color: activeTab === tab ? "#000" : "#666",
-                border: "none",
-                borderRadius: 3,
-                padding: "3px 8px",
-                fontSize: 10,
-                fontWeight: activeTab === tab ? 700 : 500,
-                cursor: "pointer",
-                letterSpacing: "0.04em",
-                transition: "all 0.15s",
-              }}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
-        {/* Search */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            background: "#1a1a1a",
-            border: "1px solid #2a2a2a",
-            borderRadius: 3,
-            padding: "3px 8px",
-            gap: 6,
-          }}
-        >
-          <SearchOutlined style={{ fontSize: 10, color: "#555" }} />
-          <input
-            type="search"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{
-              background: "none",
-              border: "none",
-              outline: "none",
-              color: "#ccc",
-              fontSize: 11,
-              width: 90,
-            }}
-          />
-        </div>
-      </div>
-
-      {/* News list */}
-      <div style={{ flex: 1, overflow: "auto" }}>
-        {activeTab === "News" ? (
-          filtered.length > 0 ? (
-            filtered.map((item) => <NewsItemRow key={item.id} item={item} />)
-          ) : (
-            <div
-              style={{
-                textAlign: "center",
-                padding: "30px 0",
-                color: "#444",
-                fontSize: 12,
-              }}
-            >
-              No results for "{search}"
-            </div>
-          )
-        ) : (
-          <div
-            style={{
-              textAlign: "center",
-              padding: "30px 0",
-              color: "#333",
-              fontSize: 12,
-            }}
-          >
-            {activeTab} content loading...
-          </div>
-        )}
-      </div>
-
-      {/* Add button */}
-      <button
-        style={{
-          position: "absolute",
-          bottom: 12,
-          right: 12,
-          width: 32,
-          height: 32,
-          borderRadius: "50%",
-          background: "#f0b90b",
-          border: "none",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 18,
-          color: "#000",
-          fontWeight: 700,
-          boxShadow: "0 2px 8px rgba(240,185,11,0.4)",
-          zIndex: 10,
-        }}
-        title="Add feed"
-      >
-        +
-      </button>
-    </WidgetCard>
+        abc
+      </Button>
+    </Card>
   );
 };
 
