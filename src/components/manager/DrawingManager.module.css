@@ -1,0 +1,202 @@
+.panel {
+  position: absolute;
+  top: 56px;
+  left: 52px;
+  z-index: 850;
+  background: rgba(22, 22, 25, 0.97);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  min-width: 280px;
+  max-width: 340px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sectionLabel {
+  color: rgba(255,255,255,0.4);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.closeBtn:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+
+.subHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.deleteAllBtn {
+  background: transparent;
+  border: none;
+  color: rgba(239,68,68,0.8);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.deleteAllBtn:hover {
+  background: rgba(239,68,68,0.1);
+  color: #f87171;
+}
+
+.list {
+  padding: 6px 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+}
+
+.empty {
+  padding: 16px 14px;
+  color: rgba(255,255,255,0.3);
+  font-size: 12px;
+  text-align: center;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  margin: 2px 6px;
+  transition: background 0.12s;
+}
+
+.item:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.itemSelected {
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+}
+
+.dragHandle {
+  cursor: grab;
+  display: flex;
+  align-items: center;
+}
+
+.colorDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.itemIcon {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.itemName {
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.renameInput {
+  flex: 1;
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.2) !important;
+  color: #fff !important;
+  font-size: 13px !important;
+  height: 24px !important;
+}
+
+.itemActions {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.12s, color 0.12s;
+}
+
+.actionBtn:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+.deleteBtnItem:hover {
+  background: rgba(239,68,68,0.15);
+  color: #f87171;
+}

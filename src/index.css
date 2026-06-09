@@ -1,552 +1,153 @@
-@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
-/* ─── Reset ─── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: #111;
-  color: #d4d4d4;
-  height: 100vh;
-  overflow: hidden;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-#root {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ─── Map Root ─── */
-.map-root {
-  position: relative;
+html, body, #root {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
+  background: #111114;
 }
 
-/* ─── Leaflet override ─── */
-.leaflet-map {
-  position: absolute !important;
-  top: 36px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #0d0d0d;
-}
-
-.leaflet-container {
-  background: #0d0d0d !important;
-  font-family: inherit !important;
-}
-
-.leaflet-control-zoom {
-  border: none !important;
-  box-shadow: none !important;
-  margin-right: 12px !important;
-  margin-bottom: 40px !important;
-}
-
-.leaflet-control-zoom a {
-  background: rgba(20, 20, 26, 0.92) !important;
-  border: 1px solid rgba(255,255,255,0.08) !important;
-  color: #aaa !important;
-  width: 26px !important;
-  height: 26px !important;
-  line-height: 24px !important;
-  font-size: 16px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.leaflet-control-zoom a:hover {
-  background: rgba(40, 40, 50, 0.98) !important;
-  color: #fff !important;
-}
-
-.leaflet-control-zoom-in {
-  border-radius: 4px 4px 0 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.leaflet-control-zoom-out {
-  border-radius: 0 0 4px 4px !important;
-}
-
-/* ─── Toolbar ─── */
-.toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+/* ========================
+   Distance label
+======================== */
+.dist-label {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 4px 8px;
-  height: 36px;
-  background: rgba(12, 12, 16, 0.97);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  backdrop-filter: blur(8px);
-}
-
-.toolbar-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 9px;
-  border-radius: 4px;
-  border: 1px solid transparent;
-  background: transparent;
-  color: #a0a0b0;
-  font-size: 12px;
-  font-weight: 500;
-  font-family: inherit;
-  letter-spacing: 0.01em;
-  cursor: pointer;
-  transition: all 0.12s ease;
-  white-space: nowrap;
-  height: 26px;
-}
-
-.toolbar-btn:hover {
-  background: rgba(255,255,255,0.06);
-  color: #d8d8e8;
-}
-
-.toolbar-btn-active {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.1);
-  color: #e0e0f0;
-}
-
-.toolbar-chevron {
-  transition: transform 0.18s ease;
-  opacity: 0.65;
-}
-
-.toolbar-chevron-up {
-  transform: rotate(180deg);
-}
-
-/* ─── Jump Panel (rendered via portal to document.body) ─── */
-.jump-panel {
-  position: fixed;
-  top: 36px;
-  left: 10px;
-  width: 198px;
-  max-height: calc(100vh - 56px);
-  background: rgba(12, 12, 17, 0.97);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-top: none;
-  border-radius: 0 0 6px 6px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.65);
-  backdrop-filter: blur(14px);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 9999;
-  animation: panel-in 0.15s ease;
-}
-
-@keyframes panel-in {
-  from { opacity: 0; transform: translateY(-4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── Search ─── */
-.search-box {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  flex-shrink: 0;
-}
-
-.search-icon {
-  color: #555;
-  flex-shrink: 0;
-}
-
-.search-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #ccc;
-  font-size: 12px;
-  font-family: inherit;
-  min-width: 0;
-}
-
-.search-input::placeholder {
-  color: #484858;
-}
-
-/* Hide browser clear button */
-.search-input::-webkit-search-cancel-button { display: none; }
-
-/* ─── Locations list ─── */
-.locations-list {
-  overflow-y: auto;
-  flex: 1;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.09) transparent;
-}
-
-.locations-list::-webkit-scrollbar { width: 3px; }
-.locations-list::-webkit-scrollbar-track { background: transparent; }
-.locations-list::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
-  border-radius: 2px;
-}
-
-.no-results {
-  padding: 14px 12px;
-  font-size: 11px;
-  color: #484858;
-}
-
-/* ─── Section ─── */
-.section {
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.section:last-child { border-bottom: none; }
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 6px 10px 4px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  text-align: left;
   gap: 4px;
-}
-
-.section-header:hover {
-  background: rgba(255,255,255,0.025);
-}
-
-.section-label {
-  font-size: 9.5px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.07em;
-  color: #e8a23d;
-}
-
-.section-chevron {
-  color: #c8882d;
-  opacity: 0.8;
-  transition: transform 0.18s;
-  flex-shrink: 0;
-}
-
-.section-chevron-open {
-  transform: rotate(90deg);
-}
-
-/* ─── Location Items ─── */
-.section-list {
-  list-style: none;
-  padding: 1px 0 5px 0;
-}
-
-.location-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  width: 100%;
-  padding: 3px 10px 3px 20px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #848498;
-  font-size: 11.5px;
-  font-family: inherit;
-  text-align: left;
-  transition: background 0.1s, color 0.1s;
-}
-
-.location-item:hover {
-  background: rgba(255,255,255,0.045);
-  color: #c8c8d8;
-}
-
-.location-item-active {
-  background: rgba(232, 162, 61, 0.14) !important;
-  color: #f0b855 !important;
-  padding-left: 10px !important;
-}
-
-.location-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #e8a23d;
-  flex-shrink: 0;
-}
-
-.location-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-/* ─── Coordinates bar ─── */
-.coords-bar {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 900;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 3px 14px;
-  background: rgba(8, 8, 12, 0.82);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  font-size: 10px;
-  color: #666;
-  letter-spacing: 0.025em;
-  white-space: nowrap;
-  border-radius: 4px 4px 0 0;
-  pointer-events: none;
-}
-
-.coords-divider {
-  color: rgba(255,255,255,0.12);
-}
-
-/* ─── Leaflet attribution ─── */
-.leaflet-control-attribution {
-  background: rgba(8, 8, 12, 0.7) !important;
-  color: #3a3a4a !important;
-  font-size: 9px !important;
-}
-
-.leaflet-control-attribution a {
-  color: #4a4a5a !important;
-}
-
-/* ─── Drawing Toolbar (vertical, left side) ─── */
-.draw-toolbar {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 6px 5px;
-  background: rgba(12, 12, 17, 0.95);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  backdrop-filter: blur(10px);
-}
-
-.draw-tool-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 5px;
-  border: 1px solid transparent;
-  background: transparent;
-  color: #7a7a90;
+  user-select: none;
+  pointer-events: auto;
   cursor: pointer;
-  transition: all 0.12s ease;
-  flex-shrink: 0;
 }
 
-.draw-tool-btn:hover {
-  background: rgba(255,255,255,0.07);
-  color: #c0c0d4;
+.dist-label .label-text {
+  color: inherit;
 }
 
-.draw-tool-btn-active {
-  background: rgba(232, 162, 61, 0.18) !important;
-  border-color: rgba(232, 162, 61, 0.35) !important;
-  color: #e8a23d !important;
+.dist-label .arrow {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 1;
+  color: inherit;
 }
 
-.draw-tool-undo {
-  color: #666;
-}
-.draw-tool-undo:hover {
-  color: #aaa;
-}
-
-.draw-tool-delete {
-  color: #774;
-}
-.draw-tool-delete:hover {
-  background: rgba(220, 80, 80, 0.12) !important;
-  color: #e06060 !important;
-}
-
-.draw-toolbar-divider {
-  width: 20px;
-  height: 1px;
-  background: rgba(255,255,255,0.08);
-  margin: 3px 0;
-}
-
-/* ─── Drawing cursor hints ─── */
-.draw-active .leaflet-container {
-  cursor: crosshair !important;
-}
-
-/* ─── Leaflet Draw overrides ─── */
-.leaflet-draw-tooltip {
-  background: rgba(12, 12, 17, 0.92) !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
-  color: #ccc !important;
-  font-size: 11px !important;
-  border-radius: 4px !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
-}
-
-.leaflet-draw-tooltip-single {
-  margin-top: -12px !important;
-}
-
-.leaflet-draw-guide-dash {
-  background: #e8a23d !important;
-}
-
-.leaflet-mouse-marker {
-  display: none;
-}
-
-/* ─── Text label popup ─── */
-.text-label-popup {
-  position: fixed;
-  z-index: 9999;
-  transform: translate(-50%, -110%);
-  background: rgba(14, 14, 20, 0.97);
-  border: 1px solid rgba(232, 162, 61, 0.3);
-  border-radius: 6px;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.6);
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 180px;
-  animation: panel-in 0.12s ease;
-}
-
-.text-label-popup::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
-  background: rgba(14, 14, 20, 0.97);
-  border-right: 1px solid rgba(232, 162, 61, 0.3);
-  border-bottom: 1px solid rgba(232, 162, 61, 0.3);
-  transform: translateX(-50%) rotate(45deg);
-}
-
-.text-label-input {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 4px;
-  color: #ddd;
+/* ========================
+   Ring label
+======================== */
+.ring-label {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
   font-size: 12px;
-  font-family: inherit;
-  padding: 5px 8px;
-  outline: none;
-  width: 100%;
-}
-
-.text-label-input:focus {
-  border-color: rgba(232, 162, 61, 0.5);
-}
-
-.text-label-input::placeholder {
-  color: #484858;
-}
-
-.text-label-actions {
-  display: flex;
-  gap: 5px;
-}
-
-.text-label-confirm {
-  flex: 1;
-  padding: 4px 8px;
-  background: rgba(232, 162, 61, 0.2);
-  border: 1px solid rgba(232, 162, 61, 0.35);
-  border-radius: 4px;
-  color: #e8a23d;
-  font-size: 11px;
-  font-family: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: auto;
   cursor: pointer;
-  transition: background 0.12s;
 }
 
-.text-label-confirm:hover {
-  background: rgba(232, 162, 61, 0.32);
-}
-
-.text-label-cancel {
-  padding: 4px 8px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 4px;
-  color: #666;
-  font-size: 11px;
-  font-family: inherit;
+/* ========================
+   Endpoint dot
+======================== */
+.endpoint-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid;
   cursor: pointer;
-  transition: all 0.12s;
 }
 
-.text-label-cancel:hover {
-  background: rgba(255,255,255,0.06);
-  color: #aaa;
+/* ========================
+   Text annotation
+======================== */
+.text-annotation {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8), 0 0 6px rgba(0,0,0,0.5);
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
-/* ─── Map text labels ─── */
-.map-text-label {
-  background: transparent !important;
+/* ========================
+   Leaflet overrides
+======================== */
+.leaflet-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+  background: none !important;
   border: none !important;
 }
 
-.map-text-content {
-  display: inline-block;
-  color: #f0c060;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: 'Inter', system-ui, sans-serif;
-  letter-spacing: 0.04em;
-  text-shadow:
-    0 0 6px rgba(0,0,0,0.9),
-    1px 1px 3px rgba(0,0,0,0.8),
-    -1px -1px 3px rgba(0,0,0,0.8);
-  white-space: nowrap;
-  cursor: move;
-  user-select: none;
+/* Fix leaflet z-index issues with antd */
+.leaflet-pane {
+  z-index: 400;
 }
 
-/* ─── Cursor per tool ─── */
-.cursor-crosshair .leaflet-grab,
-.cursor-crosshair .leaflet-container {
-  cursor: crosshair !important;
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 401;
 }
 
-.cursor-text .leaflet-grab,
-.cursor-text .leaflet-container {
-  cursor: text !important;
+/* Antd dark modal overrides */
+.ant-modal-content {
+  background: rgba(22,22,25,0.98) !important;
+}
+
+.ant-modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+.ant-modal-title {
+  color: rgba(255,255,255,0.9) !important;
+}
+
+.ant-modal-footer {
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+}
+
+.ant-popover-inner {
+  background: rgba(22,22,25,0.98) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.ant-popover-arrow::before,
+.ant-popover-arrow::after {
+  background: rgba(22,22,25,0.98) !important;
+}
+
+/* Antd input overrides */
+.ant-input {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  color: rgba(255,255,255,0.9) !important;
+}
+
+.ant-input:focus,
+.ant-input-focused {
+  border-color: rgba(245,158,11,0.6) !important;
+  box-shadow: 0 0 0 2px rgba(245,158,11,0.1) !important;
+}
+
+.ant-input::placeholder {
+  color: rgba(255,255,255,0.25) !important;
 }
