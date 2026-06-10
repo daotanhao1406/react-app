@@ -15,6 +15,39 @@ interface Props {
   drawing: IDistanceDrawing;
 }
 
+// CSS-triangle arrowhead, default pointing RIGHT, rotated by `rotateDeg`
+function makeArrowIcon(color: string, rotateDeg: number) {
+  return L.divIcon({
+    className: "",
+    html: `<div style="
+      position:absolute;left:0;top:0;
+      transform:translate(-50%,-50%) rotate(${rotateDeg}deg);
+      width:0;height:0;
+      border-top:5px solid transparent;
+      border-bottom:5px solid transparent;
+      border-left:12px solid ${color};
+      pointer-events:none;
+    "></div>`,
+    iconSize: [0, 0],
+    iconAnchor: [0, 0],
+  });
+}
+
+// Transparent drag-handle dot so endpoints remain draggable
+function makeDragDot(color: string) {
+  return L.divIcon({
+    className: "",
+    html: `<div style="
+      width:14px;height:14px;border-radius:50%;
+      background:${color};border:2px solid #fff;
+      box-shadow:0 0 4px rgba(0,0,0,0.6);
+      cursor:grab;
+    "></div>`,
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+  });
+}
+
 export default function DistanceDrawing({ drawing }: Props) {
   const { state, setSelected, updateDrawing } = useDrawingStore();
   const isSelected = state.selectedId === drawing.id;
@@ -25,42 +58,50 @@ export default function DistanceDrawing({ drawing }: Props) {
   const bearing = bearingDeg(start, end);
   const dash = getDashArray(style.lineStyle, style.weight);
 
-  // Rotate label to align with the line; keep text readable
-  let rotation = bearing - 90;
-  if (rotation > 90) rotation -= 180;
-  if (rotation < -90) rotation += 180;
+  // Keep text readable: don't let it go upside-down
+  let labelRotation = bearing - 90;
+  if (labelRotation > 90) labelRotation -= 180;
+  if (labelRotation < -90) labelRotation += 180;
+
+  // CSS rotation: default triangle → points right (east)
+  // bearing - 90 maps north→-90 (up), east→0 (right), south→90 (down), west→180 (left)
+  const endArrowRotation = bearing - 90; // end arrow points AWAY from start (along bearing)
+  const startArrowRotation = bearing + 90; // start arrow points AWAY from end (opposite)
 
   const labelIcon = useMemo(() => {
     const label = formatKm(distKm);
     return L.divIcon({
       className: "",
-      html: `<div style="position:absolute;left:0;top:0;pointer-events:auto;">
-        <div class="dist-label" style="
-          position:absolute;
-          transform:translate(-50%,-50%) rotate(${rotation}deg);
-          color:${style.color};
-          white-space:nowrap;
-        ">
-          <span class="arrow">&#8592;</span>
-          <span class="label-text">${label}</span>
-          <span class="arrow">&#8594;</span>
-        </div>
-      </div>`,
+      html: `<div style="
+        position:absolute;left:0;top:0;
+        transform:translate(-50%,-50%) rotate(${labelRotation}deg);
+        white-space:nowrap;
+        font-size:13px;
+        font-weight:700;
+        color:#fff;
+        letter-spacing:0.04em;
+        text-shadow:0 0 6px rgba(0,0,0,1),0 0 3px rgba(0,0,0,1),0 1px 4px rgba(0,0,0,0.9);
+        pointer-events:auto;
+        cursor:pointer;
+        padding:0 4px;
+        line-height:1.4;
+      ">${label}</div>`,
       iconSize: [0, 0],
       iconAnchor: [0, 0],
     });
-  }, [distKm, style.color, rotation]);
+  }, [distKm, labelRotation]);
 
-  const endpointIcon = useMemo(
-    () =>
-      L.divIcon({
-        className: "",
-        html: `<div class="endpoint-dot" style="background:${style.color};border-color:${style.color};"></div>`,
-        iconSize: [12, 12],
-        iconAnchor: [6, 6],
-      }),
-    [style.color],
+  const startArrowIcon = useMemo(
+    () => makeArrowIcon(style.color, startArrowRotation),
+    [style.color, startArrowRotation],
   );
+
+  const endArrowIcon = useMemo(
+    () => makeArrowIcon(style.color, endArrowRotation),
+    [style.color, endArrowRotation],
+  );
+
+  const dragDotIcon = useMemo(() => makeDragDot(style.color), [style.color]);
 
   if (!visible) return null;
 
@@ -85,14 +126,21 @@ export default function DistanceDrawing({ drawing }: Props) {
         }}
         eventHandlers={{ click: handleClick }}
       />
+
       <Marker
         position={[mid.lat, mid.lng]}
         icon={labelIcon}
         eventHandlers={{ click: handleClick }}
       />
+
+      {/* Arrowheads at endpoints */}
+      <Marker position={[start.lat, start.lng]} icon={startArrowIcon} />
+      <Marker position={[end.lat, end.lng]} icon={endArrowIcon} />
+
+      {/* Invisible drag handles at endpoints */}
       <Marker
         position={[start.lat, start.lng]}
-        icon={endpointIcon}
+        icon={dragDotIcon}
         draggable
         eventHandlers={{
           click: handleClick,
@@ -106,7 +154,7 @@ export default function DistanceDrawing({ drawing }: Props) {
       />
       <Marker
         position={[end.lat, end.lng]}
-        icon={endpointIcon}
+        icon={dragDotIcon}
         draggable
         eventHandlers={{
           click: handleClick,
